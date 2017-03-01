@@ -1,0 +1,27 @@
+{
+  "name": "Venti",
+  "version": "1.0.0",
+  "description": "### Background [Twenty](http://twenty.frenchguys.net/) Venti is a puzzle game inspired by Twenty, in which players match blocks together in order to form higher numbers until reaching 20. It features a Tetris-like mechanic in which a row of blocks is added every few seconds, ending the game if the blocks reach the top of the screen.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chronollama/venti.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chronollama/venti/issues"
+  },
+  "homepage": "https://github.com/chronollama/venti#readme",
+  "dependencies": {
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  }
+}
