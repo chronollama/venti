@@ -6,6 +6,7 @@ html, body, div, figure, ul, li {
   font: inherit;
   text-align: inherit;
   color: inherit;
+  user-select: none;
 }
 
 ul {
@@ -13,6 +14,7 @@ ul {
   display: flex;
   flex-wrap: wrap-reverse;
   width: 700px;
+  margin: auto;
   background: lightgray;
 }
 
@@ -31,5 +33,13 @@ div.tile {
   border-radius: 3px;
   width: 90px;
   height: 45px;
+  background: orange;
+  color: black;
   cursor: pointer;
+}
+
+div.tile > aside {
+  width: 10px;
+  padding: 15px;
+  margin: auto;
 }
