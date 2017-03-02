@@ -19,6 +19,7 @@ ul {
 li.space {
   border: 1px solid black;
   width: 98px;
+  height: 48px;
 }
 
 li.selected {
