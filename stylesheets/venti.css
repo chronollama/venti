@@ -25,3 +25,10 @@ li.space {
 li.selected {
   background: lightyellow;
 }
+
+div.tile {
+  border: 1px solid red;
+  border-radius: 3px;
+  width: 90px;
+  height: 45px;
+}
