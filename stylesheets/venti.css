@@ -9,39 +9,50 @@ html, body, div, figure, ul, li {
   user-select: none;
 }
 
+body {
+  background: #E0E0E0;
+}
+
 ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap-reverse;
+  border-radius: 10px;
   width: 700px;
+  height: 560px;
   margin: auto;
-  background: lightgray;
+  padding: 10px;
+  background: #f7f7f7;
+
 }
 
 li.space {
-  border: 1px solid black;
-  width: 98px;
-  height: 48px;
-}
-
-div.tile.selected {
-  background: #ff652f;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 100px;
+  height: 70px;
 }
 
 div.tile {
   border: 1px solid transparent;
-  border-radius: 3px;
-  width: 90px;
-  height: 45px;
-  margin: auto;
-  background: #5bc5a7;
-  color: black;
+  border-radius: 10px;
+  width: 85px;
+  height: 55px;
+  margin: 5px auto;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 4px #888888;
+  color: #FFFFFF;
+  font-family: monospace;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   cursor: pointer;
 }
 
 div.tile > aside {
   width: 10px;
-  padding: 15px;
+  padding: 16px;
   margin: auto;
 }
 
@@ -50,5 +61,5 @@ div.ui-draggable-dragging {
 }
 
 li.space.highlight {
-  background: white;
+  background: #E0E0E0;
 }
