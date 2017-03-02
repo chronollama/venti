@@ -1,0 +1,26 @@
+html, body, div, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  width: 700px;
+  background: lightgray;
+}
+
+li.space {
+  border: 1px solid black;
+  width: 98px;
+}
+
+li.selected {
+  background: lightyellow;
+}
