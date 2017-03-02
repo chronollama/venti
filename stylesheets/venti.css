@@ -11,7 +11,7 @@ html, body, div, figure, ul, li {
 ul {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   width: 700px;
   background: lightgray;
 }
