@@ -22,7 +22,7 @@ li.space {
   height: 48px;
 }
 
-li.selected {
+div.tile.selected {
   background: lightyellow;
 }
 
@@ -31,4 +31,5 @@ div.tile {
   border-radius: 3px;
   width: 90px;
   height: 45px;
+  cursor: pointer;
 }
