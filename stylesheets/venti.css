@@ -25,15 +25,16 @@ li.space {
 }
 
 div.tile.selected {
-  background: lightyellow;
+  background: #ff652f;
 }
 
 div.tile {
-  border: 1px solid red;
+  border: 1px solid transparent;
   border-radius: 3px;
   width: 90px;
   height: 45px;
-  background: orange;
+  margin: auto;
+  background: #5bc5a7;
   color: black;
   cursor: pointer;
 }
@@ -42,4 +43,8 @@ div.tile > aside {
   width: 10px;
   padding: 15px;
   margin: auto;
+}
+
+div.ui-draggable-dragging {
+  box-shadow: 10px 10px 5px #888888;
 }
