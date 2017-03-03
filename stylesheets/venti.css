@@ -22,11 +22,21 @@ ul {
   height: 560px;
   margin: auto;
   padding: 10px;
-  background: #f7f7f7;
-
 }
 
-li.space {
+ul.board {
+  position: absolute;
+  background: #f7f7f7;
+  top: 0;
+  left: 0;
+}
+
+ul.ghost-board {
+  position: relative;
+  background: transparent;
+}
+
+li {
   border: 1px solid transparent;
   border-radius: 10px;
   box-sizing: border-box;
