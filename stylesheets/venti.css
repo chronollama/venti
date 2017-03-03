@@ -41,7 +41,7 @@ div.tile {
   height: 55px;
   margin: 5px auto;
   box-sizing: border-box;
-  box-shadow: 4px 4px 4px #888888;
+  box-shadow: 4px 4px 0px #888888;
   color: #FFFFFF;
   font-family: monospace;
   font-size: 20px;
@@ -58,6 +58,7 @@ div.tile > aside {
 
 div.ui-draggable-dragging {
   box-shadow: 10px 10px 5px #888888;
+  z-index: 10;
 }
 
 li.space.highlight {
