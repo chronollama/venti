@@ -1,4 +1,4 @@
-html, body, div, figure, ul, li {
+html, body, header, main, details, nav, div, figure, ul, li {
   margin: 0;
   padding: 0;
   border: 0;
@@ -7,18 +7,42 @@ html, body, div, figure, ul, li {
   text-align: inherit;
   color: inherit;
   user-select: none;
+  list-style: none;
 }
 
 body {
-  background: #E0E0E0;
+  background: #fcc558;
+}
+
+header {
+  background: white;
+  text-align: center;
+  font-size: 24px;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.sidebar {
+  width: 200px;
+  height: 560px;
+  border: 1px solid tan;
+  border-radius: 10px;
+  background: #f7f7f7;
+  padding: 10px;
 }
 
 ul {
-  list-style: none;
   display: flex;
   flex-wrap: wrap-reverse;
+  border: 1px solid tan;
   border-radius: 10px;
-  width: 700px;
+  width: 600px;
   height: 560px;
   margin: auto;
   padding: 10px;
@@ -37,18 +61,18 @@ ul.ghost-board {
 }
 
 li {
-  border: 1px solid transparent;
-  border-radius: 10px;
+  /*border: 1px solid black;*/
+  /*border-radius: 10px;*/
   box-sizing: border-box;
-  width: 100px;
+  width: 85px;
   height: 70px;
 }
 
 div.tile {
   border: 1px solid transparent;
   border-radius: 10px;
-  width: 85px;
-  height: 55px;
+  width: 75px;
+  height: 60px;
   margin: 5px auto;
   box-sizing: border-box;
   box-shadow: 4px 4px 0px #888888;
