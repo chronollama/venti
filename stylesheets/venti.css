@@ -29,7 +29,7 @@ main {
 }
 
 .sidebar {
-  width: 200px;
+  width: 250px;
   height: 560px;
   border: 1px solid tan;
   border-radius: 10px;
@@ -42,7 +42,7 @@ ul {
   flex-wrap: wrap-reverse;
   border: 1px solid tan;
   border-radius: 10px;
-  width: 600px;
+  width: 500px;
   height: 560px;
   margin: auto;
   padding: 10px;
@@ -61,17 +61,17 @@ ul.ghost-board {
 }
 
 li {
-  /*border: 1px solid black;*/
+  border: 1px solid black;
   /*border-radius: 10px;*/
   box-sizing: border-box;
-  width: 85px;
+  width: 70px;
   height: 70px;
 }
 
 div.tile {
   border: 1px solid transparent;
   border-radius: 10px;
-  width: 75px;
+  width: 60px;
   height: 60px;
   margin: 5px auto;
   box-sizing: border-box;
