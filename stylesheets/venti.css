@@ -1,4 +1,4 @@
-html, body, header, main, details, nav, div, figure, ul, li {
+html, body, header, main, details, section, nav, div, figure, ul, li {
   margin: 0;
   padding: 0;
   border: 0;
@@ -97,4 +97,24 @@ div.ui-draggable-dragging {
 
 li.space.highlight {
   background: #E0E0E0;
+}
+
+div.timer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 25px;
+  background: #f7f7f7;
+  padding: 3px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+div.timer > section {
+  width: 32px;
+  height: 15px;
+  background: orange;
+
+  border: 1px solid black;
+  border-radius: 10px;
 }
