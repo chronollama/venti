@@ -49,16 +49,13 @@ ul {
 }
 
 ul.board {
-  position: absolute;
   background: #f7f7f7;
-  top: 0;
-  left: 0;
 }
 
-ul.ghost-board {
+/*ul.ghost-board {
   position: relative;
   background: transparent;
-}
+}*/
 
 li {
   border: 1px solid black;
