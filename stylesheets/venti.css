@@ -11,13 +11,15 @@ html, body, header, main, details, section, nav, div, figure, ul, li {
 }
 
 body {
+  font-family: sans-serif;
   background: #fcc558;
 }
 
 header {
-  background: white;
+  padding-top: 5px;
   text-align: center;
-  font-size: 24px;
+  font-weight: bold;
+  font-size: 44px;
 }
 
 main {
@@ -34,6 +36,7 @@ main {
   border: 1px solid tan;
   border-radius: 10px;
   background: #f7f7f7;
+  margin-top: 33px;
   padding: 10px;
 }
 
@@ -49,6 +52,7 @@ ul {
 }
 
 ul.board {
+  /*position: absolute;*/
   background: #f7f7f7;
 }
 
@@ -58,8 +62,8 @@ ul.board {
 }*/
 
 li {
-  border: 1px solid black;
-  /*border-radius: 10px;*/
+  /*border: 1px solid black;*/
+  border-radius: 10px;
   box-sizing: border-box;
   width: 70px;
   height: 70px;
