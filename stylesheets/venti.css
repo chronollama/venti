@@ -1,4 +1,4 @@
-html, body, header, main, details, section, nav, div, figure, ul, li {
+html, body, header, main, details, section, nav, div, figure, ul, li, p {
   margin: 0;
   padding: 0;
   border: 0;
@@ -8,6 +8,7 @@ html, body, header, main, details, section, nav, div, figure, ul, li {
   color: inherit;
   user-select: none;
   list-style: none;
+  line-height: inherit;
 }
 
 body {
@@ -31,13 +32,31 @@ main {
 }
 
 .sidebar {
-  width: 250px;
+  width: 270px;
   height: 560px;
   border: 1px solid tan;
   border-radius: 10px;
   background: #f7f7f7;
   margin-top: 33px;
   padding: 10px;
+}
+
+.instruction-block p {
+  line-height: 1.2;
+  padding: 5px 0;
+}
+
+.about-block {
+  padding-top: 5px;
+}
+
+.about-block p {
+  line-height: 1.4;
+  padding: 5px 0;
+}
+
+.about-me p {
+  padding: 5px 0;
 }
 
 ul {
@@ -47,7 +66,7 @@ ul {
   border-radius: 10px;
   width: 500px;
   height: 560px;
-  margin: auto;
+  margin: 0 10px;
   padding: 10px;
 }
 
@@ -104,15 +123,17 @@ div.timer {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin: auto;
+  width: 515px;
   height: 25px;
   background: #f7f7f7;
   padding: 3px;
-  border: 1px solid black;
+  border: 1px solid tan;
   border-radius: 10px;
 }
 
 div.timer > section {
-  width: 32px;
+  width: 84px;
   height: 15px;
   background: orange;
 

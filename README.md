@@ -1,8 +1,7 @@
 ## JS Project Proposal: Venti
 
 ### Background
-[Twenty](http://twenty.frenchguys.net/)
-Venti is a puzzle game inspired by Twenty, in which players match blocks together in order to form higher numbers until reaching 20. It features a Tetris-like mechanic in which a row of blocks is added every few seconds, ending the game if the blocks reach the top of the screen.
+Venti is a puzzle game inspired by [Twenty](http://twenty.frenchguys.net/), in which players match blocks together in order to form higher numbers until reaching 20. It features a Tetris-like mechanic in which a row of blocks is added every few seconds, ending the game if the blocks reach the top of the screen.
 
 ### Functionality and MVP
 Core functionality to this clone includes:
