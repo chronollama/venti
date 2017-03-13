@@ -13,7 +13,7 @@ html, body, header, main, details, section, nav, div, figure, ul, li, p {
 
 body {
   font-family: sans-serif;
-  background: #fcc558;
+  background-image: url("/assets/abstract-squares.png");
 }
 
 header {
