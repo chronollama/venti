@@ -28,22 +28,62 @@ header.title {
   text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
 }
 
+.links a {
+  padding: 0 10px 0 10px;
+}
+
 main {
-  display: flex;
-  justify-content: space-between;
   width: 1100px;
   margin: auto;
   padding: 20px;
 }
 
-.sidebar {
-  width: 270px;
+#venti-game {
+  position: relative;
+  margin: auto;
+  width: 542px;
+}
+
+.modal {
+  position: absolute;
+  top: 34px;
+  left: 11px;
+  width: 500px;
   height: 560px;
+  padding: 10px;
+  background: rgba(255, 195, 66, 0.8);
+  border-radius: 10px;
+}
+
+.game-over {
+  padding-top: 150px;
+  margin: auto;
+  text-align: center;
+  font-size: 50px;
+  opacity: 1;
+  color: white;
+  text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
+}
+
+.game-over a {
+  padding: 35px 10px 0 10px;
+}
+
+.restart-btn {
+  width: 200px;
+  height: 200px;
+  background: white;
+  color: black;
+}
+
+.how-to {
+  width: 500px;
+  margin: auto;
   border: 1px solid tan;
   border-radius: 10px;
   background: #f7f7f7;
   margin-top: 33px;
-  padding: 10px;
+  padding: 10px
 }
 
 .instruction-block p {
@@ -122,7 +162,7 @@ div.timer {
   align-items: center;
   justify-content: flex-start;
   margin: auto;
-  width: 515px;
+  width: 514px;
   height: 25px;
   background: #f7f7f7;
   padding: 3px;
