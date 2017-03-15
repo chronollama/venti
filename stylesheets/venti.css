@@ -23,6 +23,11 @@ header {
   font-size: 44px;
 }
 
+header.title {
+  color: white;
+  text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
+}
+
 main {
   display: flex;
   justify-content: space-between;
