@@ -1,4 +1,4 @@
-html, body, header, main, details, section, nav, div, figure, ul, li, p {
+html, body, header, main, details, section, nav, div, figure, ul, li, p, button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -26,6 +26,10 @@ header {
 header.title {
   color: white;
   text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
+}
+
+a {
+  color: rgb(85, 26, 139);
 }
 
 .links a {
@@ -70,10 +74,15 @@ main {
 }
 
 .restart-btn {
-  width: 200px;
-  height: 200px;
-  background: white;
-  color: black;
+  display: block;
+  margin: auto;
+  margin-top: 30px;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
+  font-size: 30px;
+  cursor: pointer;
 }
 
 .how-to {
