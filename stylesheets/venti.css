@@ -11,6 +11,10 @@ html, body, header, main, details, section, nav, div, figure, ul, li, p, button,
   line-height: inherit;
 }
 
+button:focus {
+  outline:0;
+}
+
 html {
   height: 100%;
 }
@@ -34,11 +38,14 @@ header.title {
 }
 
 a {
-  color: rgb(85, 26, 139);
-}
-
-.links a {
-  padding: 0 10px 0 10px;
+  font-size: 40px;
+  background: white;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 0 10px;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
 }
 
 main {
@@ -73,9 +80,13 @@ main {
   text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
 }
 
-.game-over a {
-  padding: 35px 10px 0 10px;
+.game-over p {
+  margin-bottom: 20px;
 }
+/*
+.game-over a {
+  padding: 0 10px;
+}*/
 
 .restart-btn {
   display: block;
@@ -86,6 +97,18 @@ main {
   border-radius: 10px;
   text-shadow: -1px 0 tan, 0 1px tan, 1px 0 tan, 0 -1px tan;
   font-size: 30px;
+  cursor: pointer;
+}
+
+.how-to-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgb(227, 78, 81);
+  color: white;
+  font-size: 20px;
+  font-weight: lighter;
   cursor: pointer;
 }
 
@@ -106,18 +129,6 @@ main {
 
 .instruction-block strong {
   font-size: 30px;
-}
-.about-block {
-  padding-top: 5px;
-}
-
-.about-block p {
-  line-height: 1.4;
-  padding: 5px 0;
-}
-
-.about-me p {
-  padding: 5px 0;
 }
 
 ul {
@@ -193,4 +204,16 @@ div.timer > section {
 
   border: 1px solid black;
   border-radius: 10px;
+}
+
+a.github {
+  background: #ed535f;
+}
+
+a.linkedin {
+  background: #2C8BFF;
+}
+
+a.portfolio {
+  background: #6961B0;
 }
