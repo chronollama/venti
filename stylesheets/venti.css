@@ -37,7 +37,6 @@ a {
 }
 
 main {
-  width: 1100px;
   margin: auto;
   padding: 20px;
 }
@@ -187,7 +186,3 @@ div.timer > section {
   border: 1px solid black;
   border-radius: 10px;
 }
-
-/*li.falling div.tile {
-  background: white;
-}*/
