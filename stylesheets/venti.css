@@ -148,7 +148,7 @@ div.tile {
   font-weight: bold;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   cursor: pointer;
-  transition: all 0.05s linear;
+  transition: all 0.08s linear;
 }
 
 div.tile > aside {
