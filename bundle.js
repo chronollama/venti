@@ -103,13 +103,12 @@ class Game {
   }
 
   move(toPos) {
-    this.board.move(toPos);
-    // this function enables the view to update the grid state
+    if (this.board.move(toPos) === "mismatch") {
+      this.addRow();
+      this.penalty();
+    }
+    if (this.board.highestNumber === 20) { this.isWon = true; }
   }
-
-  // moveBlankTile(toPos) {
-  //   this.board.moveBlankTile(toPos);
-  // }
 }
 
 module.exports = Game;
@@ -117,16 +116,21 @@ module.exports = Game;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const Game = __webpack_require__(0);
 
 class View {
-  constructor(game, $root) {
+  constructor($root) {
     this.$root = $root;
-    this.game = game;
+    this.game = new Game();
+    this.game.penalty = this.penalty.bind(this);
+
     this.timer = 6;
 
+    $(".how-to-btn").on ("click", this.howToPlay.bind(this));
     this.$root.on("dragstart", "div.tile", this.dragStart.bind(this));
-    this.$root.on("drop", "li.space", this.handleDrop.bind(this));
+    this.$root.on("dragstop", "div.tile", this.ensureDrop.bind(this));
     this.$root.on("dropout", "li.space", this.dropOut.bind(this));
     this.$root.on("dropover", "li.space", this.dropOver.bind(this));
 
@@ -137,24 +141,33 @@ class View {
 
   addRow() {
     this.game.addRow();
-    this.checkLoss();
     this.renderTiles(true);
   }
 
-  checkLoss() {
-    if (this.game.isLost) {
-      clearInterval(this.timerId);
-      clearInterval(this.renderId);
-      this.gameOver();
+  checkGameStatus() {
+    if (this.game.isWon) {
+      this.pause();
+      this.gameOver(true);
+    } else if (this.game.isLost) {
+      this.pause();
+      this.gameOver(false);
     }
+  }
+
+  closeHowTo() {
+    $(".how-to").remove();
+    $("body").off("click");
+    if (!this.game.isLost) { this.resume(); }
   }
 
   dragStart(event) {
     this.$draggedTile = $(event.currentTarget);
+    const num = this.$draggedTile.data("num");
+    this.$draggedTile.attr("class", `tile num${num}`);
+
     const $space = this.$draggedTile.parent();
-    this.startRow = $space.data("row");
     this.startCol = $space.data("col");
-    this.game.grabTile([this.startRow, this.startCol]);
+    this.game.grabTile([$space.data("row"), this.startCol]);
   }
 
   dropOut(event) {
@@ -162,45 +175,121 @@ class View {
   }
 
   dropOver(event) {
-    $(event.currentTarget).addClass("highlight");
-  }
-
-  gameOver() {
-
-  }
-
-  handleDrop(event, ui) {
     const $space = $(event.currentTarget);
+    $space.addClass("highlight");
+    this.newRow = $space.data("row");
+    this.newCol = $space.data("col");
+  }
+
+  ensureDrop() {
+    const row = this.newRow;
+    const col = this.newCol;
+    const $space = $(`li.space[data-row="${row}"][data-col="${col}"]`);
+    const num = this.$draggedTile.data("num");
+
     $space.append(this.$draggedTile);
-    this.game.move([$space.data("row"), $space.data("col")]);
+    this.game.move([row, col]);
+    this.$draggedTile.css({ "top" : "", "left" : "" });
+    this.$draggedTile.attr("class", `tile num${num} row${row} col${col}`);
     $space.removeClass("highlight");
-    this.game.fall(this.startCol);
-    this.game.fall($space.data("col"));
-    this.$draggedTile = null;
+    this.fall(this.startCol);
+    this.fall($space.data("col"));
+
     this.renderTiles();
   }
 
-  renderTiles(dragging = false) {
-    if (dragging) {
-      $("div.tile").not(this.$draggedTile).remove();
-    } else {
-      $("div.tile").remove();
-    }
-    const $board = $("ul.board");
+  fall(col) {
+    this.game.fall(this.startCol);
+    this.game.fall(col);
     const boardState = this.game.boardState();
     Object.values(boardState).forEach((tile) => {
+      let $div = $(`div.tile[data-id="${tile.id}"]`);
+      $div.attr("class", `tile num${tile.num} row${tile.row} col${tile.col}`);
+    });
+  }
+
+  gameOver(win = false) {
+    const $gameOver = $("<div>");
+    $gameOver.addClass("modal");
+    const $text = $("<div></div>");
+
+    if (win) { $text.append("<p>You Win!</p>"); }
+    else { $text.append("<p>Game Over</p>"); }
+    $text.addClass("game-over");
+
+    const $github = $('<a href="https://github.com/chronollama/Venti"><i class="fa fa-github" aria-hidden="true"></i></a>');
+    $github.addClass("github");
+    const $linkedin = $('<a href="https://www.linkedin.com/in/jwudev/"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>');
+    $linkedin.addClass("linkedin");
+    const $portfolio = $('<a href="http://chronollama.com/"><i class="fa fa-folder-open" aria-hidden="true"></i></a>');
+    $portfolio.addClass("portfolio");
+    const $restart = this.restartButton();
+
+    $text.append($github, $linkedin, $portfolio, $restart);
+    $gameOver.append($text);
+    this.$root.append($gameOver);
+    $gameOver.on("click", (event) => { event.stopPropagation(); });
+    this.$root.off();
+  }
+
+  howToPlay(event) {
+    event.stopPropagation();
+    this.pause();
+
+    if ($("div.how-to").length) {
+      this.closeHowTo();
+    } else {
+      const $howTo = $("<div>");
+      $howTo.addClass("modal how-to");
+
+      const $text = $("<div>");
+      $text.addClass("instruction-block");
+      $text.append("<p><strong>How to Play</strong></p>");
+      $text.append("<p>Match numbered tiles to form higher numbers. Reach 20 to win.</p>");
+      $text.append("<p>Tiles drop down to lowest unoccupied positions.</p>");
+      $text.append("<p>More tiles will be added to the bottom every 6 seconds or when tiles are matched incorrectly.</p>");
+      $text.append("<p>The game is over if the tiles reach the top.</p>");
+
+      $howTo.append($text);
+      this.$root.append($howTo);
+      $howTo.on("click", (closeEvent) => { closeEvent.stopPropagation(); });
+      $("body").on("click", this.closeHowTo.bind(this));
+    }
+  }
+
+  pause() {
+    clearInterval(this.timerId);
+    clearInterval(this.renderId);
+  }
+
+  penalty() {
+    const $board = $("ul.board");
+    $board.addClass("penalty");
+    setTimeout(() => { $board.removeClass("penalty"); }, 300);
+  }
+
+  renderTiles(dragging = false) {
+    const $board = $("ul.board");
+    const boardState = this.game.boardState();
+    boardState["removed"].forEach((tileId) => {
+      $(`div.tile[data-id=${tileId}]`).remove();
+    });
+
+    Object.values(boardState["tiles"]).forEach((tile) => {
       let $div = $(`div.tile[data-id="${tile.id}"]`);
       if ($div.length === 0) {
         $div = $(`<div><aside>${tile.num}</aside></div>`)
           .draggable({ containment: "ul.board" });
         $div.addClass(`tile num${tile.num} row${tile.row} col${tile.col}`);
         $div.attr("data-id", tile.id);
+        $div.attr("data-num", tile.num);
       } else {
-        $div.removeClass().addClass(`tile num${tile.num} row${tile.row} col${tile.col}`);
+        $div.attr("class", `tile num${tile.num} row${tile.row} col${tile.col}`);
       }
       const $li = $(`li.space[data-row="${tile.row}"][data-col="${tile.col}"]`);
-      $li.append($div);
+      setTimeout(() => { $li.append($div); }, 51);
     });
+    this.checkGameStatus();
   }
 
   resetTimer() {
@@ -211,6 +300,22 @@ class View {
     }
   }
 
+  restartButton() {
+    const $button = $("<button>Reset</button>");
+    $button.addClass("restart-btn");
+    $button.on("click", () => {
+      $(".game-over").remove();
+      this.$root.empty();
+      new View($("#venti-game"));
+    });
+    return $button;
+  }
+
+  resume() {
+    this.timerId = setInterval(this.tick.bind(this), 1000);
+    this.renderId = setInterval(this.renderTiles.bind(this, true), 1000);
+  }
+
   setup() {
     this.setupTimer();
     this.setupBoard();
@@ -218,13 +323,6 @@ class View {
       this.game.fall(i);
     }
     this.renderTiles();
-  }
-
-  setupTimer() {
-    const $timer = $("<div>");
-    $timer.addClass("timer");
-    this.$root.append($timer);
-    this.resetTimer();
   }
 
   setupBoard() {
@@ -242,6 +340,13 @@ class View {
       }
     }
     this.$root.append($board);
+  }
+
+  setupTimer() {
+    const $timer = $("<div>");
+    $timer.addClass("timer");
+    this.$root.append($timer);
+    this.resetTimer();
   }
 
   tick() {
@@ -273,7 +378,7 @@ class Board {
     for (let i = 2; i < 8; i++) {
       this.grid[i] = new Array(7).fill(null);
     }
-    // this.blankTile = new Tile(-1);
+    this.removedTiles = [];
     this.highestNumber = 5;
   }
 
@@ -339,23 +444,21 @@ class Board {
   grabTile(pos) {
     this.draggedTile = this.getSpace(pos);
     this.setSpace(pos, null);
-    //  ^^ move this logic to the function that triggers after movign the tile out
-    //  OR just leave the tile appended to the original position until release
-
     this.startPos = pos;
   }
 
   gridState() {
     let state = {};
+    let tiles = {};
     for (let row = 0; row < 8; row++) {
       for (let col = 0; col < 7; col++) {
         if (this.occupied([row, col])) {
           const tile = this.getSpace([row, col]);
-          state[tile.id] = { row, col, num: tile.number, id: tile.id };
+          tiles[tile.id] = { row, col, num: tile.number, id: tile.id };
         }
       }
     }
-    return state;
+    return { tiles, "removed" : this.removedTiles };
   }
 
   move(toPos, tile = null) {
@@ -363,20 +466,21 @@ class Board {
     const landingTile = this.getSpace(toPos);
     if (landingTile) {
       if (landingTile.isMatch(tile)) {
+        this.removedTiles.push(tile.id);
+        this.removedTiles.push(landingTile.id);
         const newTile = landingTile.combine(tile);
         this.updateHighest(newTile.number);
         this.setSpace(toPos, newTile);
+      } else {
+        this.removedTiles.push(tile.id);
+        this.removedTiles.push(landingTile.id);
+        this.setSpace(toPos, null);
+        return "mismatch";
       }
     } else {
       this.setSpace(toPos, tile);
     }
   }
-
-  // moveBlankTile(toPos) {
-  //   this.setSpace(this.blankPos, null);
-  //   this.move(toPos, this.blankTile);
-  //   this.blankPos = toPos;
-  // }
 
   numAt(pos) {
     if (this.occupied(pos)) {
@@ -447,8 +551,7 @@ const Game = __webpack_require__(0);
 
 $( () => {
   const rootEl = $('#venti-game');
-  const game = new Game();
-  new View(game, rootEl);
+  new View(rootEl);
 });
 
 
