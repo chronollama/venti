@@ -78,3 +78,63 @@ div.tile.num19 {
 div.tile.num20 {
   background: #e1ff00;
 }
+
+div.tile.row0 {
+  bottom: 10px;
+}
+
+div.tile.row1 {
+  bottom: 80px;
+}
+
+div.tile.row2 {
+  bottom: 150px;
+}
+
+div.tile.row3 {
+  bottom: 220px;
+}
+
+div.tile.row4 {
+  bottom: 290px;
+}
+
+div.tile.row5 {
+  bottom: 360px;
+}
+
+div.tile.row6 {
+  bottom: 430px;
+}
+
+div.tile.row7 {
+  bottom: 500px;
+}
+
+div.tile.col0 {
+  left: 15px;
+}
+
+div.tile.col1 {
+  left: 85px;
+}
+
+div.tile.col2 {
+  left: 155px;
+}
+
+div.tile.col3 {
+  left: 225px;
+}
+
+div.tile.col4 {
+  left: 295px;
+}
+
+div.tile.col5 {
+  left: 365px;
+}
+
+div.tile.col6 {
+  left: 435px;
+}

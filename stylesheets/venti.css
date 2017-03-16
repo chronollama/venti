@@ -122,10 +122,8 @@ ul {
   height: 560px;
   margin: 0 10px;
   padding: 10px;
-}
-
-ul.board {
   background: #f7f7f7;
+  position: relative;
 }
 
 li {
@@ -136,11 +134,12 @@ li {
 }
 
 div.tile {
-  border: 1px solid transparent;
-  border-radius: 10px;
+  position: absolute !important;
   width: 60px;
   height: 60px;
   margin: 5px auto;
+  border: 1px solid transparent;
+  border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 4px 4px 0px #888888;
   color: #FFFFFF;
@@ -149,6 +148,7 @@ div.tile {
   font-weight: bold;
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
   cursor: pointer;
+  transition: all 0.05s linear;
 }
 
 div.tile > aside {
@@ -187,3 +187,7 @@ div.timer > section {
   border: 1px solid black;
   border-radius: 10px;
 }
+
+/*li.falling div.tile {
+  background: white;
+}*/
