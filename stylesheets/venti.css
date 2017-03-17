@@ -12,7 +12,7 @@ html, body, header, main, details, section, nav, div, figure, ul, li, p, button,
 }
 
 button:focus {
-  outline:0;
+  outline: 0;
 }
 
 html {
@@ -113,6 +113,8 @@ main {
   margin: auto;
   padding: 10px;
   text-align: center;
+  background: #E56A6E;
+  color: #000000;
 }
 
 .instruction-block p {
@@ -120,8 +122,6 @@ main {
   line-height: 1.2;
   font-size: 22px;
   font-weight: 100;
-  color: #ffffff;
-  text-shadow: -1px 0 #E6A168, 0 1px #E6A168, 1px 0 #E6A168, 0 -1px #E6A168;
 }
 
 .instruction-block strong {
