@@ -128,15 +128,14 @@ class View {
 
     this.timer = 6;
 
-    $(".how-to-btn").on ("click", this.howToPlay.bind(this));
     this.$root.on("dragstart", "div.tile", this.dragStart.bind(this));
     this.$root.on("dragstop", "div.tile", this.ensureDrop.bind(this));
     this.$root.on("dropout", "li.space", this.dropOut.bind(this));
     this.$root.on("dropover", "li.space", this.dropOver.bind(this));
 
-    this.setup();
     this.timerId = setInterval(this.tick.bind(this), 1000);
     this.renderId = setInterval(this.renderTiles.bind(this, true), 1000);
+    this.setup();
   }
 
   addRow() {
@@ -154,7 +153,17 @@ class View {
     }
   }
 
-  closeHowTo() {
+  clickInstructions(event) {
+    event.stopPropagation();
+    this.pause();
+    if ($("div.how-to").length) {
+      this.closeInstructions();
+    } else {
+      this.openInstructions();
+    }
+  }
+
+  closeInstructions() {
     $(".how-to").remove();
     $("body").off("click");
     if (!this.game.isLost) { this.resume(); }
@@ -232,29 +241,22 @@ class View {
     this.$root.off();
   }
 
-  howToPlay(event) {
-    event.stopPropagation();
-    this.pause();
+  openInstructions() {
+    const $howTo = $("<div>");
+    $howTo.addClass("modal how-to");
 
-    if ($("div.how-to").length) {
-      this.closeHowTo();
-    } else {
-      const $howTo = $("<div>");
-      $howTo.addClass("modal how-to");
+    const $text = $("<div>");
+    $text.addClass("instruction-block");
+    $text.append("<p><strong>How to Play</strong></p>");
+    $text.append("<p>Match numbered tiles to form higher numbers. Reach 20 to win.</p>");
+    $text.append("<p>Tiles drop down to lowest unoccupied positions.</p>");
+    $text.append("<p>More tiles will be added to the bottom every 6 seconds or when tiles are matched incorrectly.</p>");
+    $text.append("<p>The game is over if the tiles reach the top.</p>");
 
-      const $text = $("<div>");
-      $text.addClass("instruction-block");
-      $text.append("<p><strong>How to Play</strong></p>");
-      $text.append("<p>Match numbered tiles to form higher numbers. Reach 20 to win.</p>");
-      $text.append("<p>Tiles drop down to lowest unoccupied positions.</p>");
-      $text.append("<p>More tiles will be added to the bottom every 6 seconds or when tiles are matched incorrectly.</p>");
-      $text.append("<p>The game is over if the tiles reach the top.</p>");
-
-      $howTo.append($text);
-      this.$root.append($howTo);
-      $howTo.on("click", (closeEvent) => { closeEvent.stopPropagation(); });
-      $("body").on("click", this.closeHowTo.bind(this));
-    }
+    $howTo.append($text);
+    this.$root.append($howTo);
+    $howTo.on("click", (closeEvent) => { closeEvent.stopPropagation(); });
+    $("body").on("click", this.closeInstructions.bind(this));
   }
 
   pause() {
@@ -287,7 +289,7 @@ class View {
         $div.attr("class", `tile num${tile.num} row${tile.row} col${tile.col}`);
       }
       const $li = $(`li.space[data-row="${tile.row}"][data-col="${tile.col}"]`);
-      setTimeout(() => { $li.append($div); }, 51);
+      setTimeout(() => { $li.append($div); }, 100);
     });
     this.checkGameStatus();
   }
@@ -304,8 +306,9 @@ class View {
     const $button = $("<button>Reset</button>");
     $button.addClass("restart-btn");
     $button.on("click", () => {
-      $(".game-over").remove();
+      $(".modal").remove();
       this.$root.empty();
+      this.$root.off();
       new View($("#venti-game"));
     });
     return $button;
@@ -319,10 +322,13 @@ class View {
   setup() {
     this.setupTimer();
     this.setupBoard();
+    this.setupInstructions();
     for (let i = 0; i < 7; i++) {
       this.game.fall(i);
     }
     this.renderTiles();
+    this.pause();
+    this.openInstructions();
   }
 
   setupBoard() {
@@ -340,6 +346,13 @@ class View {
       }
     }
     this.$root.append($board);
+  }
+
+  setupInstructions() {
+    const $button = $("<button>Instructions</button>");
+    $button.on("click", this.clickInstructions.bind(this));
+    $button.addClass("how-to-btn");
+    this.$root.append($button);
   }
 
   setupTimer() {
