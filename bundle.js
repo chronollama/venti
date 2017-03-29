@@ -247,16 +247,18 @@ class View {
 
     const $text = $("<div>");
     $text.addClass("instruction-block");
-    $text.append("<p><strong>How to Play</strong></p>");
-    $text.append("<p>Match numbered tiles to form higher numbers. Reach 20 to win.</p>");
-    $text.append("<p>Tiles drop down to lowest unoccupied positions.</p>");
-    $text.append("<p>More tiles will be added to the bottom every 6 seconds or when tiles are matched incorrectly.</p>");
-    $text.append("<p>The game is over if the tiles reach the top.</p>");
+    $text.append("<p><strong>How to Play</strong></p>",
+      "<p>Match numbered tiles to form higher numbers. Reach 20 to win.</p>",
+      "<p>Tiles drop down to lowest unoccupied positions.</p>",
+      "<p>More tiles will be added to the bottom every 6 seconds or when tiles are matched incorrectly.</p>",
+      "<p>The game is over if the tiles reach the top.</p>");
 
-    $howTo.append($text);
+    const $resumeButton = $("<button>Resume</button>").addClass("how-to-btn");
+    $resumeButton.on("click", this.closeInstructions.bind(this));
+
+    $howTo.append($text, $resumeButton);
     this.$root.append($howTo);
     $howTo.on("click", (closeEvent) => { closeEvent.stopPropagation(); });
-    $("body").on("click", this.closeInstructions.bind(this));
   }
 
   pause() {
