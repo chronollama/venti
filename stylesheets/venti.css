@@ -11,6 +11,10 @@ html, body, header, main, details, section, nav, div, figure, ul, li, p, button,
   line-height: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 button:focus {
   outline: 0;
 }
