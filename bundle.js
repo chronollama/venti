@@ -203,12 +203,10 @@ class View {
     $space.removeClass("highlight");
     this.fall(this.startCol);
     this.fall($space.data("col"));
-
-    this.renderTiles();
+    setTimeout(this.renderTiles.bind(this), 100);
   }
 
   fall(col) {
-    this.game.fall(this.startCol);
     this.game.fall(col);
     const boardState = this.game.boardState();
     Object.values(boardState).forEach((tile) => {
