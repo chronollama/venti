@@ -87,6 +87,10 @@ class Game {
     return this.board.gridState();
   }
 
+  clearRemoved() {
+    this.board.clearRemoved();
+  }
+
   fall(colIdx) {
     let shouldFall = true;
     while (shouldFall) {
@@ -133,14 +137,12 @@ class View {
     this.$root.on("dropout", "li.space", this.dropOut.bind(this));
     this.$root.on("dropover", "li.space", this.dropOver.bind(this));
 
-    this.timerId = setInterval(this.tick.bind(this), 1000);
-    this.renderId = setInterval(this.renderTiles.bind(this, true), 1000);
     this.setup();
   }
 
   addRow() {
     this.game.addRow();
-    this.renderTiles(true);
+    this.renderTiles();
   }
 
   checkGameStatus() {
@@ -175,6 +177,7 @@ class View {
     this.$draggedTile.attr("class", `tile num${num}`);
 
     const $space = this.$draggedTile.parent();
+    $space.children().not(this.$draggedTile).remove();
     this.startCol = $space.data("col");
     this.game.grabTile([$space.data("row"), this.startCol]);
   }
@@ -202,7 +205,7 @@ class View {
     this.$draggedTile.attr("class", `tile num${num} row${row} col${col}`);
     $space.removeClass("highlight");
     this.fall(this.startCol);
-    this.fall($space.data("col"));
+    this.fall(col);
     setTimeout(this.renderTiles.bind(this), 100);
   }
 
@@ -270,14 +273,15 @@ class View {
     setTimeout(() => { $board.removeClass("penalty"); }, 300);
   }
 
-  renderTiles(dragging = false) {
+  renderTiles() {
     const $board = $("ul.board");
     const boardState = this.game.boardState();
-    boardState["removed"].forEach((tileId) => {
+    boardState.removed.forEach((tileId) => {
       $(`div.tile[data-id=${tileId}]`).remove();
     });
+    this.game.clearRemoved();
 
-    Object.values(boardState["tiles"]).forEach((tile) => {
+    Object.values(boardState.tiles).forEach((tile) => {
       let $div = $(`div.tile[data-id="${tile.id}"]`);
       if ($div.length === 0) {
         $div = $(`<div><aside>${tile.num}</aside></div>`)
@@ -316,7 +320,7 @@ class View {
 
   resume() {
     this.timerId = setInterval(this.tick.bind(this), 1000);
-    this.renderId = setInterval(this.renderTiles.bind(this, true), 1000);
+    this.renderId = setInterval(this.renderTiles.bind(this), 1000);
   }
 
   setup() {
@@ -427,6 +431,10 @@ class Board {
     return this.grid[7].some((el) => el !== null);
   }
 
+  clearRemoved() {
+    this.removedTiles = [];
+  }
+
   fallStep(colIdx) {
     let didFall = false;
     for (let rowIdx = 1; rowIdx < this.grid.length; rowIdx++) {
@@ -471,7 +479,8 @@ class Board {
         }
       }
     }
-    return { tiles, "removed" : this.removedTiles };
+    const removed = this.removedTiles.slice();
+    return { tiles, removed };
   }
 
   move(toPos, tile = null) {
@@ -504,10 +513,6 @@ class Board {
 
   occupied(pos) {
     return this.getSpace(pos) ? true : false;
-  }
-
-  reportLoss() {
-
   }
 
   setSpace(pos, tile) {
