@@ -388,7 +388,7 @@ const Tile = __webpack_require__(3);
 
 class Board {
   constructor() {
-    const startTiles = this.generateTiles(true);
+    const startTiles = Board.generateTiles(true);
     this.grid = new Array(8);
     this.grid[0] = startTiles.slice(0, 7);
     this.grid[1] = startTiles.slice(7);
@@ -401,8 +401,10 @@ class Board {
 
   static generateTiles(setup = false) {
     let values;
-    if (setup) {values = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 5];}
-    else {values = [1, 1, 2, 2, 3, 4, 5];}
+    if (setup) { values = [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 5]; }
+    else if (this.highestNumber < 8) { values = [1, 1, 2, 2, 3, 4, 5]; }
+    else if (this.highestNumber < 12) { values = [6, 6, 7, 7, 8, 9, 10]; }
+    else { values = [11, 11, 12, 12, 13, 14, 15]; }
     Board.shuffle(values);
     return values.map((value) => {
       return new Tile(value);
@@ -424,7 +426,7 @@ class Board {
       const row = this.grid[rowIdx];
       this.grid[rowIdx + 1] = row;
     }
-    this.grid[0] = this.generateTiles();
+    this.grid[0] = Board.generateTiles();
   }
 
   atTopRow() {
@@ -446,16 +448,6 @@ class Board {
       }
     }
     return didFall;
-  }
-
-  generateTiles(setup = false) {
-    let values;
-    if (setup) {values = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 5];}
-    else {values = [1, 1, 2, 2, 3, 4, 5];}
-    Board.shuffle(values);
-    return values.map((value) => {
-      return new Tile(value);
-    });
   }
 
   getSpace(pos) {
